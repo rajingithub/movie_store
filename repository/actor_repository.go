@@ -43,3 +43,42 @@ func (a *ActorRepository) GetAllActors() ([]models.Actor, error) {
 	}
 	return actors, nil
 }
+
+func (a *ActorRepository) GetActorsByMovieID(movieID int) ([]models.Actor, error) {
+	query := `
+		SELECT a.id, a.name, a.image
+		FROM actors a
+		INNER JOIN movie_actors ma ON ma.actor_id = a.id
+		WHERE ma.movie_id = ?
+		ORDER BY a.id
+	`
+
+	rows, err := a.db.Query(query, movieID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var actors []models.Actor
+
+	for rows.Next() {
+		var actor models.Actor
+		var image sql.NullString
+		if err := rows.Scan(&actor.ID, &actor.Name, &image); err != nil {
+			return nil, err
+		}
+		if image.Valid {
+			value := image.String
+			actor.Image = &value
+		} else {
+			actor.Image = nil
+		}
+		actors = append(actors, actor)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return actors, nil
+}

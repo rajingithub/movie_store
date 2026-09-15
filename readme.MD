@@ -113,3 +113,68 @@ VALUES
     Main Job of main.go is create dependencies, connect dependencies and start application
 
 
+
+GOROUTINES : 
+
+goroutine is a function that can run in background , so rest of the code can excute without waiting for it to finish. 
+
+
+eg : 
+
+1. 
+func sample():
+    time.sleep(10)
+    print("wait completed")
+    return
+
+func main():
+    print("hello")
+    sample()
+    print("world")
+
+output : 
+
+hello
+wait completed
+world
+
+- without using go routines, if we run main function, it will main function needs to wait till sample function finishes (which has 10secs delay)
+
+
+
+
+2. 
+func sample():
+    time.sleep(10)
+    print("wait completed")
+    return
+
+func main():
+    print("hello")
+    go sample()
+    print("world")
+
+hello
+world
+wait completed
+
+- if we use goroutines , then main function need not wait till sample function gets completed.
+
+
+Concurrency : Dealing with multiple things  at same time
+Parallelism : Running Multiple things at once. 
+
+Go routines guarentees concurrency, whether they can be run in parallel depends upon number of CPU cores on the machine.
+
+if we have cpu with 4 cores, go run 4 go routines truly in parallel, if we have 4 cpu cores and 100 goroutines
+go switches those 100 go routines between 4 CPU cores.
+
+Channels :
+
+
+channel is a pipe that go routine uses to send/receive data with other go routine.
+2 types : 
+
+blocking channel : A blocking send/receive waits until the other side is ready
+A non-blocking send/receive does not wait; it either succeeds or immediately skips.
+

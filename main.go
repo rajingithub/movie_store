@@ -26,6 +26,7 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/", homeHandler).Methods("GET")
 	router.HandleFunc("/movies", movieHandler.GetAllMovies).Methods("GET")
+	router.HandleFunc("/movie_details/{id}", movieHandler.GetMovieDetails).Methods("GET")
 	router.HandleFunc("/actors", actorHandler.GetAllActors).Methods("GET")
 	fmt.Println("Server is running on port 8080...")
 	err := http.ListenAndServe(":8080", router)
