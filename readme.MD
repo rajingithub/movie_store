@@ -121,7 +121,8 @@ goroutine is a function that can run in background , so rest of the code can exc
 
 eg : 
 
-1. 
+1.
+```
 func sample():
     time.sleep(10)
     print("wait completed")
@@ -131,19 +132,23 @@ func main():
     print("hello")
     sample()
     print("world")
-
+```
 output : 
 
+```
 hello
 wait completed
 world
+```
 
 - without using go routines, if we run main function, it will main function needs to wait till sample function finishes (which has 10secs delay)
 
 
 
 
-2. 
+2.
+
+```
 func sample():
     time.sleep(10)
     print("wait completed")
@@ -153,10 +158,13 @@ func main():
     print("hello")
     go sample()
     print("world")
+```
 
+```
 hello
 world
 wait completed
+```
 
 - if we use goroutines , then main function need not wait till sample function gets completed.
 
