@@ -168,9 +168,10 @@ wait completed
 
 - if we use goroutines , then main function need not wait till sample function gets completed.
 
-
+```
 Concurrency : Dealing with multiple things  at same time
 Parallelism : Running Multiple things at once. 
+```
 
 Go routines guarentees concurrency, whether they can be run in parallel depends upon number of CPU cores on the machine.
 
